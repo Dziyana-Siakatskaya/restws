@@ -1,9 +1,5 @@
 package com.epam.edu.student.controller;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
-
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
