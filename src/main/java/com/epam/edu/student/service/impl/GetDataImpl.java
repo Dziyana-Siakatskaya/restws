@@ -3,8 +3,6 @@ package com.epam.edu.student.service.impl;
 import java.util.List;
 
 import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -28,22 +26,15 @@ public class GetDataImpl implements GetData {
 	private UpdateDataDAO updateDataDAO;
 	
 	@Override
-	public String getAlerts(final int alertTypeId, final int alertCount) {
+	public JSONArray getAlerts(final int alertTypeId, final int alertCount) {
 		JSONArray jsonArray = new JSONArray();
 		List<Alert> list = getDataDAO.getInstancesOnAllertTypeId(alertTypeId, alertCount);
 		
-		JSONObject jsonObject;
-		try {
-			for (Alert temp : list) {
-				jsonObject = new JSONObject();
-				jsonObject.accumulate("message", temp.getAlertTypeId() + " " + temp.getAlertMessage() + " " + temp.getAlertPosted());
-				jsonArray.put(jsonObject);
-			}
-		} catch (JSONException e) {
-			e.printStackTrace();
+		for (Alert temp : list) {
+			jsonArray.put(temp.getJSON());
 		}
 		updateDataDAO.setAllertsStatePosted(list);
-		return jsonArray.toString();
+		return jsonArray;
 	}
 
 }

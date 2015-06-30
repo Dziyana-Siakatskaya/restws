@@ -76,29 +76,11 @@ public class TestController {
 		return message;
 	}
 
-	/*@RequestMapping(value = "/json2/callback.json", method = RequestMethod.GET)
-	public void jsonpCallback(@RequestParam("callback") String callback,
-			HttpServletResponse response) {
-		System.out.println(callback);
-		Messanger messanger = new Messanger();
-		messanger.setMessage(String.valueOf(utils.getRandom()));
-		
-		response.setContentType("application/json; charset=UTF-8");
-		PrintWriter out = null;
-		try {
-			out = response.getWriter();
-			out.print(callback
-					+ String.format(RESPONSE_BODY, messanger.getJSON()));
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			out.close();
-		}
-	}*/
-
 	@RequestMapping(value = "/getAlert", method = RequestMethod.POST)
-	public void getAlert(@RequestParam("alertTypeId") int alertTypeId,@RequestParam("alertCount") int alertCount,
+	public void getAlert(@RequestParam("alertTypeId") String alertTypeString,@RequestParam("alertCount") String alertCountString,
 			HttpServletResponse response) {
+		int alertTypeId = Integer.valueOf(alertTypeString);
+		int alertCount = Integer.valueOf(alertCountString);
 		postData.sendJSONResponse(response, getData.getAlerts(alertTypeId, alertCount));
 		
 	}

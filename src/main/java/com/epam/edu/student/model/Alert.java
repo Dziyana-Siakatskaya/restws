@@ -7,6 +7,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 @Entity
 @Table(name = "alerts", catalog = "test")
 public class Alert {
@@ -81,6 +84,17 @@ public class Alert {
 		this.alertPosted = alertPosted;
 	}
 	
-	
+	public JSONObject getJSON() {
+		JSONObject jsonObject = new JSONObject();
+		try {
+			jsonObject.accumulate("id", id);
+			jsonObject.accumulate("alertTypeId", alertTypeId);
+			jsonObject.accumulate("alertMessage", alertMessage);
+			jsonObject.accumulate("alertPosted", alertPosted);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return jsonObject;
+	}
 	
 }
