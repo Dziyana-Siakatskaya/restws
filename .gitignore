@@ -1,7 +1,0 @@
-.settings/
-target/
-.gitignore
-.classpath
-.project
-.eclipse-pmd
-.checkstyle
